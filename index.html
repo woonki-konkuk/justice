@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>조직공정성 자가진단</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif; background: #f4fbf7; margin: 0; }
+    .container { max-width: 600px; margin: 32px auto; background: #fff; border-radius: 16px; box-shadow: 0 2px 16px #0001; padding: 32px 24px 40px 24px; }
+    h1 { font-size: 2rem; margin-bottom: 0.2em; text-align: center; color: #1b7f3a; }
+    .subtitle { color: #388e3c; text-align: center; margin-bottom: 1.5em; }
+    .progress-wrap { margin: 1.5em 0 2em 0; }
+    .progress-bar-bg { width: 100%; height: 8px; background: #d6f5e3; border-radius: 4px; }
+    .progress-bar { height: 8px; background: #6fdc8c; border-radius: 4px; transition: width 0.3s; }
+    .progress-label { text-align: right; color: #388e3c; font-size: 0.95em; margin-top: 0.2em; }
+    .notice { background: #ffeaea; color: #b71c1c; border-radius: 8px; padding: 18px; margin-bottom: 2em; text-align: center; font-weight: 700; font-size: 1.13em; letter-spacing: -0.01em; }
+    .question-card { background: #f5f7fa; border-radius: 12px; padding: 20px 16px 16px 16px; margin-bottom: 20px; box-shadow: 0 1px 4px #0001; }
+    .question-text { font-size: 1.22em; font-weight: 700; margin-bottom: 16px; color: #1b5e20; }
+    .likert-row { display: flex; align-items: center; justify-content: space-between; }
+    .likert-label { color: #388e3c; font-size: 0.97em; width: 110px; text-align: center; }
+    .likert-choices { display: flex; gap: 18px; }
+    .likert-choices label { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+    .likert-choices input[type=radio] { appearance: none; width: 32px; height: 32px; border: 3px solid #a5d6a7; border-radius: 50%; background: #fff; margin-bottom: 6px; transition: border 0.2s; }
+    .likert-choices input[type=radio]:checked { border: 10px solid #43a047; }
+    .likert-choices span { font-size: 1.08em; color: #388e3c; }
+    button[type=submit] { width: 100%; background: #43a047; color: #fff; border: none; border-radius: 8px; padding: 16px 0; font-size: 1.1em; font-weight: 600; margin-top: 18px; cursor: pointer; transition: background 0.2s; }
+    button[type=submit]:hover { background: #388e3c; }
+    .desc-card { 
+      background: #e8f5e9; 
+      border-radius: 12px; 
+      padding: 24px 20px; 
+      margin: 32px 0 20px 0; 
+      box-shadow: 0 1px 4px #0002;
+      border-left: 5px solid #43a047;
+    }
+    .desc-text { 
+      color: #1b5e20; 
+      font-size: 1.15em; 
+      font-weight: 600; 
+      line-height: 1.5;
+      margin: 0;
+    }
+    .bar-chart-wrap { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-end; 
+      height: 220px; 
+      margin: 2em 0 1.5em 0; 
+      background: #f4fbf7; 
+      border-radius: 12px; 
+      padding: 18px 40px 0 40px;
+      position: relative;
+    }
+    .grid-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      padding: 18px 40px 0 40px;
+    }
+    .grid-line {
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      border-top: 1px dashed #a5d6a7;
+    }
+    .grid-label {
+      position: absolute;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #388e3c;
+      font-size: 0.9em;
+    }
+    .bar-col {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100px;
+    }
+    .bar-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+    }
+    .bar-vert { 
+      width: 60px; 
+      background: #43a047; 
+      border-radius: 4px 4px 0 0; 
+      display: flex; 
+      align-items: flex-end; 
+      justify-content: center; 
+      transition: height 0.5s;
+    }
+    .bar-score { 
+      font-weight: 600; 
+      color: #1b7f3a; 
+      margin-bottom: 6px; 
+      font-size: 1.1em;
+      text-align: center;
+    }
+    .bar-label { 
+      margin-top: 10px; 
+      padding: 0 4px;
+      min-height: 1.2em;
+      font-size: 1em; 
+      color: #388e3c; 
+      font-weight: 500; 
+      text-align: center;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 12px 2vw 24px 2vw; }
+      .bar-chart-wrap { padding: 18px 30px 0 30px; }
+      .grid-lines { padding: 18px 30px 0 30px; }
+      .grid-line { left: 30px; right: 30px; }
+      .bar-col { width: 80px; }
+      .bar-vert { width: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>조직공정성 자가진단</h1>
+    <div class="subtitle">건국대학교 조직행동론 홍운기 교수</div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar" id="progressBar" style="width:0%"></div>
+      </div>
+      <div class="progress-label" id="progressLabel">0/15</div>
+    </div>
+    <div class="notice">
+      각 문항에 대하여 <span style="color:#b71c1c;font-weight:700;">현재 소속된 조직에서의 경험을 바탕으로</span> 응답해 주세요.
+    </div>
+    <form id="mpsForm">
+      <div id="questions"></div>
+      <button type="submit">결과 보기</button>
+    </form>
+    <div class="result" id="result" style="display:none"></div>
+  </div>
+  <script>
+    const items = [
+      // 절차적 공정성
+      [1, "설명: 다음 항목들은 귀하의 결과물(급여, 승진 등)이 결정되는 절차에 관한 질문입니다.", "PJ", false, true],
+      [2,  "귀하는 이러한 절차 과정에서 자신의 의견이나 감정을 표현할 수 있었습니까?", "PJ", false],
+      [3,  "귀하는 이러한 절차를 통해 도출되는 결과(급여, 승진 등)에 영향을 미칠 수 있었습니까?", "PJ", false],
+      [4,  "이러한 절차들은 일관되게 적용되었습니까?", "PJ", false],
+      [5,  "이러한 절차들은 편향 없이 진행되었습니까?", "PJ", false],
+      [6,  "이러한 절차들은 정확한 정보에 기반하여 이루어졌습니까?", "PJ", false],
+      [7,  "귀하는 이러한 절차를 통해 결정된 결과(급여, 승진 등)에 이의를 제기할 수 있었습니까?", "PJ", false],
+
+      // 분배적 공정성
+      [8, "설명: 다음 항목들은 귀하가 받은 결과물(급여, 승진 등)에 관한 질문입니다.", "DJ", false, true],
+      [9, "귀하가 받은, 급여나 승진과 같은 결과물은 귀하가 업무에 투입한 노력을 반영합니까?", "DJ", false],
+      [10, "귀하가 받은 결과물은 귀하가 완수한 업무에 적합합니까?", "DJ", false],
+      [11, "귀하가 받은 결과물은 귀하가 조직에 기여한 바를 반영합니까?", "DJ", false],
+      [12, "귀하의 성과를 고려할 때, 귀하가 받은 결과물은 정당합니까?", "DJ", false],
+
+      // 상호작용 공정성
+      [13, "설명: 다음 항목들은 절차를 시행하는 권한자(리더, 인사담당자, 혹은 상사)에 관한 질문입니다.", "IJ", false, true],
+      [14, "귀하에게 정중하게 대했습니까?", "IJ", false],
+      [15, "귀하를 존엄하게 대했습니까?", "IJ", false],
+      [16, "귀하를 존중했습니까?", "IJ", false],
+      [17, "부적절한 발언이나 논평을 삼갔습니까?", "IJ", false],
+    ];
+
+    const factors = {
+      PJ: { name: "절차적 공정성", items: [2,3,4,5,6,7], desc: "의사결정 절차의 공정성" },
+      DJ: { name: "분배적 공정성", items: [9,10,11,12], desc: "결과물 분배의 공정성" },
+      IJ: { name: "상호작용 공정성", items: [14,15,16,17], desc: "대인관계에서의 공정성" }
+    };
+
+    // 문항 렌더링
+    const qDiv = document.getElementById('questions');
+    items.forEach(([num, text, factor, reverseFlag, isDesc], idx) => {
+      const card = document.createElement('div');
+      if (isDesc) {
+        card.className = 'desc-card';
+        card.innerHTML = `<div class="desc-text">${text}</div>`;
+      } else {
+        card.className = 'question-card';
+        card.innerHTML = `
+          <div class="question-text">${text}</div>
+          <div class="likert-row">
+            <span class="likert-label">전혀 그렇지 않다</span>
+            <div class="likert-choices">
+              ${[1,2,3,4,5].map(v => `
+                <label>
+                  <input type="radio" name="q${num}" value="${v}">
+                  <span>${v}</span>
+                </label>
+              `).join('')}
+            </div>
+            <span class="likert-label">매우 그렇다</span>
+          </div>
+        `;
+      }
+      qDiv.appendChild(card);
+    });
+
+    // 진행률
+    function updateProgress() {
+      const total = items.filter(item => !item[4]).length;
+      const checked = Array.from(document.querySelectorAll('input[type=radio]:checked')).length;
+      document.getElementById('progressBar').style.width = (checked/total*100) + '%';
+      document.getElementById('progressLabel').textContent = `${checked}/${total}`;
+    }
+    qDiv.addEventListener('change', updateProgress);
+
+    // 역코딩 함수
+    function reverse(score) { return 6 - score; }
+
+    // 제출 처리
+    document.getElementById('mpsForm').onsubmit = function(e) {
+      e.preventDefault();
+      // 응답 수집
+      const scores = {};
+      for (let [num,,factor,reverseFlag,isDesc] of items) {
+        if (isDesc) continue;
+        const val = document.querySelector(`input[name="q${num}"]:checked`);
+        if (!val) { alert(`${num}번 문항에 응답해 주세요.`); return; }
+        let score = Number(val.value);
+        if (reverseFlag) score = reverse(score);
+        scores[num] = score;
+      }
+      // 하위요소별 평균
+      const factorScores = {};
+      for (let key in factors) {
+        const arr = factors[key].items.map(n => scores[n]);
+        factorScores[key] = arr.reduce((a,b)=>a+b,0)/arr.length;
+      }
+
+      // 결과 시각화
+      let html = `
+        <div class="result-title">조직공정성 진단 결과</div>
+        <div class="bar-group">
+          <div class="bar-chart-wrap">
+            <div class="grid-lines">
+              ${[5,4,3,2,1].map(score => `
+                <div class="grid-line" style="top: ${(5-score)/4*160+18}px"></div>
+                <div class="grid-label" style="top: ${(5-score)/4*160+18}px">${score}.0</div>
+              `).join('')}
+            </div>
+            ${Object.keys(factors).map(key => {
+              const score = factorScores[key];
+              return `
+                <div class="bar-col">
+                  <div class="bar-content">
+                    <div class="bar-score">${score.toFixed(2)}</div>
+                    <div class="bar-vert" style="height:${Math.max(20, score/5*160)}px" title="${factors[key].name}"></div>
+                    <div class="bar-label">${factors[key].name}</div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+      document.getElementById('result').innerHTML = html;
+      document.getElementById('result').style.display = '';
+      window.scrollTo(0,document.body.scrollHeight);
+    };
+    // 최초 진행률
+    updateProgress();
+  </script>
+</body>
+</html>
